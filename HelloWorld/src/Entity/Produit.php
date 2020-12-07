@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
@@ -19,32 +20,37 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255, maxMessage= "Nom de produit trop long. - de 255 caractères")
      */
     private $nomProduit;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\positive
      */
     private $prix;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\positive
      */
     private $largeur;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\positive
      */
     private $profondeur;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\positive
      */
     private $hauteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="marqueProduit")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\positive
      */
     private $codeMarque;
 
@@ -52,8 +58,6 @@ class Produit
     {
         return $this->id;
     }
-
-    
 
     public function getNomProduit(): ?string
     {
@@ -72,7 +76,7 @@ class Produit
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(?int $prix): self
     {
         $this->prix = $prix;
 
@@ -115,12 +119,12 @@ class Produit
         return $this;
     }
 
-    public function getCodeMarque(): ?Marque
+    public function getCodeMarque(): ?int 
     {
         return $this->codeMarque;
     }
 
-    public function setCodeMarque(?Marque $codeMarque): self
+    public function setCodeMarque(?int $codeMarque): self
     {
         $this->codeMarque = $codeMarque;
 
