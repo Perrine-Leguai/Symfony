@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Par ici les recherches !{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 100%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <div class="col-11">
+        <h1>Welcome to the {{ controller_name }}! ✅</h1>
+        <h3>C'est par ici les recherches</h3>
+    </div>
+     <table class="table table-hover blockquote text-center mt-5 col-11"> {# création rapide table>tr>th*3+tr>td*3 #}
+        <thead>
+            <tr>
+                <th>N° Produit</th>
+                <th>Nom produit</th>
+                <th>Prix</th>
+                <th>Largeur</th>
+                <th>Longueur</th>
+                <th>hauteur</th>
+            </tr>    
+        </thead>
+        <tfoot>
+            <tr>
+                <th>N° Produit</th>
+                <th>Nom produit</th>
+                <th>Prix</th>
+                <th>Largeur</th>
+                <th>Profondeur</th>
+                <th>Hauteur</th>
+            </tr>    
+        </tfoot>
+        <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{produit.id}}</td>
+                    <td>{{produit.nomProduit}}</td>
+                    <td>{{produit.prix}}</td>
+                    <td>{{produit.largeur}}</td>
+                    <td>{{produit.profondeur}}</td>
+                    <td>{{produit.hauteur}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
