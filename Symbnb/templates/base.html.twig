@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <title>SymBnb - {% block title %}{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/css/app.css">
+
         {% endblock %}
     </head>
     <body>
@@ -18,11 +20,11 @@
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{path('home')}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mon compte</a>
+                        <a class="nav-link" href="{{path('annonces_index')}}">Annonces</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
@@ -50,9 +52,9 @@
             </div>
         </nav>
         {% block body %}{% endblock %}
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

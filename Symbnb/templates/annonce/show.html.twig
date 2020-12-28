@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ad.title}}
+{% endblock %}
+
+{% block body %}
+    <div class="ad-title" style="background-image: url({{ad.coverImage}})">
+        <div class="container">
+            <h1>{{ad.title}}</h1>
+            <p>{{ad.introduction}}</p>
+            <p class="h3">
+                <strong>{{ad.chambres}} chambres</strong> pour <strong> {{ad.prix}}&euro; </strong> par nuit
+            </p>
+            <a href="#" class="btn btn-primary">Réserver </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                {{ad.content|raw }}
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                        
+                        {% for image in ad.images %}
+                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" class="{% if loop.first %} active {% endif %}"></li>
+                        {% endfor %}
+                    </ol>
+                    {# chargement des images #}
+                    <div class="carousel-inner">
+                    {% for image in ad.images %}
+                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                            <img src="{{image.url}}" class="d-block w-100" alt="image{{image.id}}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ad.title}}</h5> 
+                                <p>{{image.caption}}.</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    {# affichage des barres de navigation du carrousel #}
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden"></span>
+                    </a>
+                    </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="http://placehold.it/64x64" alt="avatar de Joe">
+                    </div>
+                    <div class="col">
+                        <h3>Joe LeTaxi</h3>   
+                        <span class="badge badge-primary"> 3 annonces </span>                 
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias necessitatibus animi ipsum culpa delectus quod esse fuga voluptas autem iusto.</p>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis delectus sit minima labore animi autem mollitia pariatur sunt libero suscipit.</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, iusto!</p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
