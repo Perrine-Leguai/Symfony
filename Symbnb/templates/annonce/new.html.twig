@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %}Création annonce{% endblock %}
+{# creation d'un thème #}
+{# {% form_theme formulaire _self %}  si twig doit utiliser un template, il appelle form_row #}
+
+{% block body %}
+    <div class="container">
+        <h1>Créer une nouvelle annonce</h1>
+
+        {{form_start(formulaire)}}
+        {{form_widget(formulaire)}}
+         <button type="submit" class="btn btn-primary"> + Ajouter annonce</button> 
+        {{form_end(formulaire)}}
+
+        {# {{form(formulaire)}} tout d'un coup #}
+    </div>
+{% endblock %}
+
+
+{#  suite et fin de création de theme #}
+{# {% block form_row %}
+    <div class="form-group">
+        {{form_label(form)}}
+        {{form_widget(form)}}
+    </div>
+{% endblock %}#}
+
+{# expliquer comment les champs vont s'afficher #}
+{#{% block text_widget %}
+    <input type="text" name="{{full_name}}" id="{{id}}" class="form-control">
+{% endblock %}
+
+{% block url_widget %}
+    <input type="text" class="form-control">
+{% endblock %} #}

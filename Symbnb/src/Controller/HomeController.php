@@ -15,7 +15,6 @@ class HomeController extends AbstractController
     {
         $prenoms= ["Lior"=>31, "Perrine"=> 28];
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'prenoms' => $prenoms,
         ]);
     }
