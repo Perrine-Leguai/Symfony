@@ -28,6 +28,8 @@ class Annonce
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=10, minMessage="Titre trop court", max=255, maxMessage="Titre trop long")
      */
     private $title;
 
@@ -38,26 +40,33 @@ class Annonce
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $prix;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=10, minMessage="Veuillez saisir une introduction plus longue")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(min=200, minMessage="Veuillez saisir une description plus détaillée de votre logement")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImage;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $chambres;
 

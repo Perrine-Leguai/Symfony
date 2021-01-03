@@ -2,7 +2,7 @@
 {% block title %}Création annonce{% endblock %}
 {# creation d'un thème #}
 {# {% form_theme formulaire _self %}  si twig doit utiliser un template, il appelle form_row #}
-{% form_theme formulaire _self %}
+{% form_theme formulaire 'annonce/_collection.html.twig' %}
 {% block body %}
     <div class="container">
         <h1>Créer une nouvelle annonce</h1>
@@ -16,45 +16,12 @@
     </div>
 {% endblock %}
 
-{% block _annonce_images_widget %} {# On va définir l'affichage du champ qui s'appelle add_images #}
-    <p><strong>A vous d'ajouter vos propres images :</strong></p>
-    {{form_widget(form)}}
-    <div class="form-group">
-        <button type="button" id="addImage" class="btn btn-secondary">Ajouter Image</button>
-    </div>
-{% endblock %}
 
-{% block _annonce_images_entry_row %} {# redéfinir la manière d'afficher chaque ligne (label, erreur, widget et aides) #}
-    {{form_widget(form)}}
-{% endblock %}
-
-{% block _annonce_images_entry_widget %}
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-                {{form_widget(form.url)}}
-            </div>
-            <div class="col">
-                {{form_widget(form.caption)}}
-            </div>
-        </div>
-    </div>
-{% endblock %}
 
 {% block javascripts %}
-    <script>
-        $('#addImage').click(function(){
-            const index=$('#annonce_images div.form-group').length //va renvoyer toutes les div qui ont la class form-group
-            //récupe le prototype des entrées = le code qui va permettre de générer un nouveau formulaire
-            const tplt = $('#annonce_images').data('prototype').replace(/__name__/g, index);
-
-            console.log(tplt);
-            //j'injecte dans la div
-
-            $('#annonce_images').append(tmpl);
-        
-        })
-    </script>
+<script src="/js/annonce.js">
+    
+</script>
 {% endblock %}
 
 {#  suite et fin de créati-on de theme #}

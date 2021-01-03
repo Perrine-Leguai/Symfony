@@ -24,7 +24,9 @@ class AnnonceType extends ApplicationType
     {
         $builder
             ->add('title', TextType::class, $this->getConfig('Titre', 'Titre de votre annonce') )
-            ->add('slug', TextType::class, $this->getConfig('Chaine URL', "Adresse web (facultatif). Ex: titre-de-l-annonce"))
+            ->add('slug', TextType::class, $this->getConfig('Chaine URL', "Adresse web (facultatif). Ex: titre-de-l-annonce"), [
+                'required'  => false
+            ])
             ->add('coverImage', UrlType::class, $this->getConfig("URL de l'image", "Saisissez l'adresse de l'image") )
             ->add('introduction', TextType::class, $this->getConfig("Introduction", 'Description rapide de l\'annonce'))
             ->add('content', TextareaType::class, $this->getConfig("Descripion complète", "Saisissez une description complète de votre logement. + de détails = + de clics"))
@@ -33,7 +35,8 @@ class AnnonceType extends ApplicationType
             //champ de type collection pour la gestion des images
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,
-                'allow_add' => true
+                'allow_add' => true,     //dans cette collection, on peut ajouter de nouveaux éléments
+                'allow_delete' =>true   //autorise la suppression d'image 
             ]);
     }
 
@@ -45,16 +48,3 @@ class AnnonceType extends ApplicationType
     }
 }
 
-// ->add("title")
-//                     ->add("introduction")
-//                     ->add('content')
-//                     ->add('chambres')
-//                     ->add('coverImage')
-//                     ->add('prix')
-//                     ->add('save', SubmitType::class, [
-//                             'label'=> "+ Ajouter l'annonce",
-//                             'attr' => [
-//                                 'class' => 'btn btn-primary'
-//                             ]
-//                    ] ) si on utilise un formulaire form en twig
-//                  ->getForm();  gère la validité, si il a été soumis ou non ...

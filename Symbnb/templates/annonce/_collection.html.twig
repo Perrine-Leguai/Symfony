@@ -1,0 +1,35 @@
+{% block _annonce_images_widget %} {# On va définir l'affichage du champ qui s'appelle add_images #}
+    <p><strong>Vous pouvez modifier vos images en changeant leur lien :</strong></p>
+    {{form_widget(form)}}
+
+    <input type="hidden" id="widgets-counter" value="0">
+    <div class="form-group">
+        <button type="button" id="addImage" class="btn btn-secondary">Ajouter Image</button>
+    </div>
+{% endblock %}
+
+{% block _annonce_images_entry_row %} {# redéfinir la manière d'afficher chaque ligne (label, erreur, widget et aides) #}
+    {{form_widget(form)}}
+{% endblock %}
+
+{% block _annonce_images_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{form_widget(form.url)}}
+                        {{form_errors(form.url)}}
+                    </div>
+                    <div class="col">
+                        {{form_widget(form.caption)}}
+                        {{form_errors(form.caption)}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="submit" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

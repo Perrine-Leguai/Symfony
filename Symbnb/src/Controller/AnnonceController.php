@@ -43,6 +43,12 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);  //fait lien entre champ du formulaire et la variable $ad
 
         if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){ //précise que les images appartiennent aux annonces
+                $image->setAnnonce($ad);
+                $manager->persist($image);
+            }
+            $user=$this->getUser();
+            $ad->setAuthor($user);
             $manager->persist($ad);
             $manager->flush();
 
@@ -60,6 +66,42 @@ class AnnonceController extends AbstractController
             'formulaire' => $form->createView()
         ]);
     }
+
+    /**
+     * Permet d'afficher le formulaire de modif 
+     *@Route("/annonces/{slug}/modification", name="annonces_modification")
+     * @return Response
+     */
+    public function editAnnonce(Request $request, Annonce $ad, EntityManagerInterface $manager){
+        $form=$this->createForm(AnnonceType::class, $ad);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){ //précise que les images appartiennent aux annonces
+                $image->setAnnonce($ad);
+                $manager->persist($image);
+            }
+            $manager->persist($ad);
+            $manager->flush();
+
+            //renvoie un flash d'avertissement pour dire que tout s'est bien passé
+            $this->addFlash(
+                'success', "Bravo, l'annonce <strong>{$ad->getTitle()}</strong>a bien été modifiée !"
+            );
+            
+            //redirige une fois l'action réussie
+            return $this->redirectToRoute('annonces_show', [
+                'slug'  => $ad->getSlug()
+            ]);
+        }
+
+        return $this->render('annonce/modif.html.twig', [
+            'formulaire' =>$form->createView(),
+            'ad' => $ad
+        ]);
+        
+    }
+
 
     //symfony comprend directement que le $ad demandé dans show est l'annonce qui a le slug passé en url
     //paramconverter
