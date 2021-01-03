@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
@@ -31,10 +32,15 @@ class AnnonceController extends AbstractController
      */
     public function createAnnonce(Request $request, EntityManagerInterface $manager) : Response{
         $ad=new Annonce();
+        $image= new Image();
+
+        $image->setUrl('http://placehold.it/300x200/')
+            ->setCaption('titre 1');
+        
+        $ad->addImage($image);
+
         $form=$this->createForm(AnnonceType::class, $ad);
         $form->handleRequest($request);  //fait lien entre champ du formulaire et la variable $ad
-        
-        
 
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($ad);
