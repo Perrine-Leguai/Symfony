@@ -98,6 +98,12 @@ class User implements UserInterface
      */
     private $annonces;
 
+
+    public function getFullName(){
+        return "{$this->firstName} {$this->lastName}";
+    }
+
+
     /**
      * Permet d'initialiser le Slug
      * @ORM\PrePersist

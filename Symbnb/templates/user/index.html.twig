@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de {{user.username}}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-3 text-center">
+            <img src="{{user.picture}}" class="avatar mb-3" alt="Avatar de {{user.username}}">
+            <br>
+            <span class="badge badge-pill badge-primary">{{user.annonces | length}} annonces</span>
+        </div>
+        <div class="col-9 mb-3">
+            <h1>{{user.username}} - {{user.fullName}} </h1>
+            {% if user is same as(app.user) %}
+                <div class="mt-3">
+                    <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-2">Modifier mon profil</a>
+                    <a href="{{ path('account_updatePassword') }}" class="btn btn-primary mr-2 mb-2">Modifier mon mdp</a>
+                
+                    <a href="#" class="btn btn-primary mr-2 mb-2">Supprimer mon compte</a>
+                </div>
+
+
+            {% endif %}
+        </div>
+    </div>
+    {{user.introduction}} <br>
+    {{user.description | raw}}
+    <hr>
+    <h2>Les annonces de {{user.username}} </h2>
+
+    {% if user.annonces | length > 0 %}
+        <div class="row">
+            {% for annonce in user.annonces %}
+                {% include "annonce/_ad.html.twig" %}                
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <p><strong>{{user.username}} n'a pas encore d'annonce sur notre site</strong></p>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

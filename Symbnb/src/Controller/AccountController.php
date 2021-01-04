@@ -12,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -78,6 +80,7 @@ class AccountController extends AbstractController
      * Permet d'afficher et de traiter le formulaire de modifiacation de profil
      *
      * @Route("/account/profile", name="account_profile")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function profile(Request $request, EntityManagerInterface $manager ){
@@ -103,7 +106,7 @@ class AccountController extends AbstractController
 
     /**
          * @Route("account/updatePassword", name="account_updatePassword")
-         *
+         * @IsGranted("ROLE_USER")
          */
         public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager) : Response {
             $passwordUpdate= new PasswordUpdate();
@@ -139,6 +142,18 @@ class AccountController extends AbstractController
 
             return $this->render('security/updatePassword.html.twig', [
                 'modificationPwd'   =>$form->createView()
+            ]);
+        }
+
+        /**
+         * Permet aux utilisateurs d'accéder à leur compte sur le site
+         *@Route("/account", name="account_index")
+         * @IsGranted("ROLE_USER")
+         * @return Response
+         */
+        public function myAccount(){
+           return $this->render('user/index.html.twig', [
+                'user'  => $this->getUser()
             ]);
         }
 }

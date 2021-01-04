@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnonceController extends AbstractController
@@ -29,6 +31,7 @@ class AnnonceController extends AbstractController
     /**
      * Permet de créer une annonce - formulaire
      * @Route("/annonces/new", name="annonces_create")
+     * @IsGranted("ROLE_USER")
      */
     public function createAnnonce(Request $request, EntityManagerInterface $manager) : Response{
         $ad=new Annonce();
@@ -69,7 +72,8 @@ class AnnonceController extends AbstractController
 
     /**
      * Permet d'afficher le formulaire de modif 
-     *@Route("/annonces/{slug}/modification", name="annonces_modification")
+     * @Route("/annonces/{slug}/modification", name="annonces_modification")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Vous ne pouvez modifier cette annonce")
      * @return Response
      */
     public function editAnnonce(Request $request, Annonce $ad, EntityManagerInterface $manager){
@@ -116,5 +120,18 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de supprimer une annonce
+     * @Route("/annonces/{slug}/supprimer", name="annonces_suppression")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Impossible d'accéder à cette requête, vous n'avez pas les droits.")
+     */
+    public function delete(Annonce $ad, EntityManagerInterface $manager){
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash(
+            'success', "L'annonce <strong>{$ad->getTitle()}</strong> a bien été supprimée !"        );
+        return $this->redirectToRoute("annonces_index");
+    }
     
 }

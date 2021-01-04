@@ -1,0 +1,24 @@
+{% set url = path('annonces_show',{'slug':annonce.slug}) %}
+    <div class="col-md-4">
+        <div class="card bg_light mb-3">
+            <a href="{{url}}">
+                <div class="card-header text-center">
+                    {{annonce.chambres}} chambres, <strong>{{annonce.prix}}&euro; /nuit</strong> <br>
+                    <small>Pas encore notée</small>
+                </div>
+            </a>
+            <div class="imageAnnonce">
+                <a href="{{url}}">
+                    <img src="{{annonce.coverImage}}" alt="image de l'appartement" style="height:200px; width:100% display: block">
+                </a>
+            </div>
+            <div class="card-body">
+                <h4 class="class-title"> {{annonce.title}}</h4>
+                <p class="card-text"> {{annonce.introduction}}</p>
+                <a href="{{url}}" class="btn btn-outline-secondary">En savoir plus</a>
+                {% if app.user and app.user == annonce.author %}
+                    <a href="{{path('annonces_modification', {'slug': annonce.slug})}}"  class="btn btn-secondary">Modifier</a>
+                {% endif %}
+            </div>                
+        </div>
+    </div>

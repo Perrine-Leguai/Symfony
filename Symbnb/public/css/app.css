@@ -22,3 +22,32 @@ img.d-block{
 div.carousel-caption{
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
+
+/* Mise en forme de la photo de profil utilisateur  */
+.avatar{
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+
+.avatar-medium{
+    max-width: 64px;
+    max-height: 128px;
+}
+
+.avatar-mini{
+    max-width:30px;
+    max-height: 30px;
+}
+
+/* pour les images des annonces */
+.imageAnnonce {
+    height:200px;
+    background-color:#FFFFFF;
+    margin-top:10px;
+    overflow: hidden;
+}
+
+.imageAnnonce img {
+    height:100%;
+}
